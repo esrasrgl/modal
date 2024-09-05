@@ -31,9 +31,3 @@
   flex-direction: column;
   justify-content: space-between;
 }
-.modal-content {
-  max-height: calc(100%);
-  max-width: calc(100% - 40px); 
-  overflow-y: auto;
-  overflow-x: hidden;
-}
