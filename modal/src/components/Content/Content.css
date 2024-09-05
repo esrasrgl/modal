@@ -1,0 +1,69 @@
+.container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.content {
+  flex: 0.5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.comment {
+  flex: 0.4;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+}
+h1 {
+  margin: 0;
+  height: 24px;
+  /*styleName: WEB/H2/Semi Bold;*/
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24.2px;
+  text-align: left;
+  color: #2c406e;
+}
+.text-container {
+  padding: 24px 20px 24px 20px;
+  border-radius: 12px;
+  border: 1px;
+  border: 1px solid #eeeeee;
+  gap: 4px;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+textarea {
+  width: 100%;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  text-align: left;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: inherit;
+}
+textarea::-webkit-input-placeholder {
+  color: #c4c4c4;
+  width: 100%;
+}
+.item-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+span {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  cursor: pointer;
+}
