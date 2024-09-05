@@ -12,9 +12,9 @@ export default function Modal({ onClose }) {
         className="modal-content"
         onClick={(e) => e.stopPropagation()}
       >
-          <Header />
+          <Header onClose={onClose}/>
           <Content />
-          <Buttons />
+          <Buttons onClose={onClose}/>
 
       </div>
     </div>
