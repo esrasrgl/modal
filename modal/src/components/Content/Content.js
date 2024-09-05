@@ -1,16 +1,13 @@
 import "./Content.css";
 import { CommentArea } from "./CommentArea";
-import { useState, useEffect } from "react";
 import CheckItem from "./CheckItem";
-import { getReportIssueType } from "../../api/requests";
 
-export const Content = () => {
-  const [message, setMessage] = useState("");
-  const [responseData, setResponseData] = useState([]);
-
-  useEffect(() => {
-    getReportIssueType(setResponseData);
-  }, []);
+export const Content = ({
+  message,
+  responseData,
+  setResponseData,
+  setMessage,
+}) => {
 
   const handleChange = (event) => setMessage(event.target.value);
 
