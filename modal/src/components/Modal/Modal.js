@@ -12,6 +12,7 @@ export default function Modal({ onClose }) {
         onClick={(e) => e.stopPropagation()}
       >
         <Header/>
+        <Buttons/>
       </div>
     </div>
   );

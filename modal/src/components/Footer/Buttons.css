@@ -1,0 +1,25 @@
+button {
+  width: 100%;
+  padding: 8.47px 21.79px 8.47px 21.79px;
+  border-radius: 9.68px;
+  border: none;
+  color: #ffffff;
+  font-size: 14.53px;
+  font-weight: 500;
+  line-height: 23px;
+  text-align: center;
+  cursor: pointer;
+}
+.buttons {
+  gap: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.close-btn {
+  background: #6a7898;
+}
+.submit-btn {
+  background: #054edd;
+}
