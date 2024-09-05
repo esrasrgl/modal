@@ -1,0 +1,14 @@
+.modalBtn {
+  background-color: #054edd;
+  color: white;
+  padding: 8.47px 21.79px 8.47px 21.79px;
+  border: none;
+  border-radius: 9.68px;
+  opacity: 0px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+.modalBtn:hover {
+  background-color: #053edd;
+  transform: translateY(-5px);
+}
