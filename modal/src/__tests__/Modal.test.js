@@ -27,17 +27,16 @@ describe("modal test ", () => {
   beforeEach(() => {
     mockSetResponseData = jest.fn();
     mockSetMessage = jest.fn();
+    mockSetIsLoading = jest.fn();
 
     React.useState
       .mockImplementationOnce((init) => [init, mockSetMessage]) // useState (message)
-      .mockImplementationOnce((init) => [init, mockSetResponseData]); // useState (responseData)
+      .mockImplementationOnce((init) => [init, mockSetResponseData]) // useState (responseData)
+      .mockImplementationOnce((init) => [init, mockSetIsLoading]); // useState (isLoadiing)
 
     mockOnClose = jest.fn();
     utils = render(
-      <Modal
-        onClose={mockOnClose}
-        responseData={mockResponseData}
-      />
+      <Modal onClose={mockOnClose} responseData={mockResponseData} />
     );
   });
   afterEach(() => {
@@ -80,6 +79,7 @@ describe("api get test", () => {
   beforeEach(() => {
     useStateMock.mockImplementation((init) => [init, mockSetMessage]);
     useStateMock.mockImplementation((init) => [init, mockSetResponseData]);
+    useStateMock.mockImplementationOnce((init) => [init, mockSetIsLoading]);
   });
 
   afterEach(() => {
@@ -107,7 +107,7 @@ describe("api get test", () => {
       ]);
     });
   });
-  
+
   it("handles errors from the api call", async () => {
     axios.get.mockRejectedValue(new Error("Network Error"));
     const error = new Error("API request failed");
