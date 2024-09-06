@@ -67,3 +67,10 @@ span {
   text-align: left;
   cursor: pointer;
 }
+.loading {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24.2px;
+  color: #2c406e;
+}

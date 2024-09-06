@@ -7,8 +7,8 @@ export const Content = ({
   responseData,
   setResponseData,
   setMessage,
+  isLoading,
 }) => {
-
   const handleChange = (event) => setMessage(event.target.value);
 
   const handleCheck = (id) => {
@@ -25,9 +25,14 @@ export const Content = ({
     <div className="container">
       <div className="content">
         <h1>Bir Problemle mi Karşılaştın? 🤔</h1>
-        {responseData.map((item, index) => (
-          <CheckItem item={item} setIsChecked={handleCheck} key={index} />
-        ))}
+        {isLoading ? (
+        <p className="loading">Loading ...</p>
+      ):(<>
+      
+      {responseData.map((item, index) => (
+        <CheckItem item={item} setIsChecked={handleCheck} key={index} />
+      ))}
+      </>)}
       </div>
       <div className="comment">
         <h1>Yorum Yapabilirsin</h1>

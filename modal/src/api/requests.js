@@ -1,27 +1,23 @@
 import axios from "axios";
 import { API_URL, TOKEN } from "../config/config";
 
-export const getReportIssueType = async (setResponseData) => {
+export const getReportIssueType = async () => {
   try {
     const response = await axios.get(`${API_URL}/getreportissuetype`, {
-      headers: {
-        Authorization: `Bearer ${TOKEN}`,
-      },
+      headers: { Authorization: `Bearer ${TOKEN}` },
     });
     const { ResponseStatus, ResponseMessage, ResponseData } = response.data;
-
     const updatedData = ResponseData.map((item) => ({
       ...item,
       DescriptionStatus: false, // for checkBox control
     }));
 
-    setResponseData(updatedData);
-
     console.log("getReportIssueType response: ");
-    console.log("Status:", ResponseStatus);
-    console.log("Message:", ResponseMessage);
+    console.log(`Status: ${ResponseStatus}, Message: ${ResponseMessage}`);
     console.log("Data:", ResponseData);
     console.log("updatedData:", updatedData);
+
+    return updatedData;
   } catch (error) {
     console.log("getReportIssueType error ", error);
   }

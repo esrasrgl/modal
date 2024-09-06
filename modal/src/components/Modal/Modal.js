@@ -12,9 +12,22 @@ import { BookSectionCropReport } from "../../api/requests";
 export default function Modal({ onClose }) {
   const [message, setMessage] = useState("");
   const [responseData, setResponseData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    getReportIssueType(setResponseData);
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const result = await getReportIssueType();
+        setResponseData(result);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("useEffect error:", error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const handleSubmit = () => {
@@ -48,6 +61,7 @@ export default function Modal({ onClose }) {
           setMessage={setMessage}
           responseData={responseData}
           message={message}
+          isLoading={isLoading}
         />
         <Buttons onClose={onClose} submit={handleSubmit} />
       </div>
