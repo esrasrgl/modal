@@ -43,7 +43,7 @@ export default function Modal({ onClose }) {
       BookSectionCropId: 1,
       AdminPanelPage: AdminPanelPage.QuestionSubTopicSelection,
     };
-    //BookSectionCropReport(data);
+    BookSectionCropReport(data);
     console.log("handleSubmit data", data);
   };
 
