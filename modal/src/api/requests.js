@@ -20,6 +20,7 @@ export const getReportIssueType = async () => {
     return updatedData;
   } catch (error) {
     console.log("getReportIssueType error ", error);
+    return [];
   }
 };
 
