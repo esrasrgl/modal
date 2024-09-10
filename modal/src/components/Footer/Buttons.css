@@ -1,4 +1,4 @@
-button {
+.button {
   width: 100%;
   padding: 8.47px 21.79px 8.47px 21.79px;
   border-radius: 9.68px;
@@ -9,6 +9,7 @@ button {
   line-height: 23px;
   text-align: center;
   cursor: pointer;
+  flex: 1;
 }
 .buttons {
   gap: 8px;

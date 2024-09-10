@@ -1,6 +1,8 @@
 import "./App.css";
 import { useState } from "react";
 import Modal from "./components/Modal/Modal";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -13,9 +15,10 @@ function App() {
         Open Modal
       </button>
       {showModal && (
-        <Modal
-        onClose={handleClose}
-      />
+        <>
+          <ToastContainer />
+          <Modal onClose={handleClose} />
+        </>
       )}
     </div>
   );
