@@ -2,6 +2,7 @@ import React, { useState as useStateMock } from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import axios from "axios";
 import Modal from "../components/Modal/Modal";
+import { toast } from "react-toastify";
 
 jest.mock("axios");
 jest.mock("../Svg/CloseModalSvg.js", () => () => <div>CloseModalSvg Mock</div>);
@@ -9,6 +10,13 @@ jest.mock("../Svg/CloseModalSvg.js", () => () => <div>CloseModalSvg Mock</div>);
 jest.mock("react", () => ({
   ...jest.requireActual("react"),
   useState: jest.fn(),
+}));
+
+jest.mock("react-toastify", () => ({
+  toast: {
+    success: jest.fn(),
+    error: jest.fn(),
+  },
 }));
 
 const mockResponseData = [
@@ -39,7 +47,7 @@ describe("modal test ", () => {
       <Modal onClose={mockOnClose} responseData={mockResponseData} />
     );
   });
-  
+
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -77,11 +85,17 @@ describe("modal test ", () => {
 describe("api get test", () => {
   const mockSetResponseData = jest.fn();
   const mockSetMessage = jest.fn();
+  const mockSetIsLoading = jest.fn();
+
   beforeEach(() => {
-    useStateMock.mockImplementation((init) => [init, mockSetMessage]);
-    useStateMock.mockImplementation((init) => [init, mockSetResponseData]);
-    useStateMock.mockImplementationOnce((init) => [init, mockSetIsLoading]);
+    useStateMock.mockImplementation((initialValue) => {
+      if (initialValue === "") return [initialValue, mockSetMessage];
+      if (Array.isArray(initialValue)) return [initialValue, mockSetResponseData];
+      if (typeof initialValue === 'boolean') return [initialValue, mockSetIsLoading];
+      return [initialValue, jest.fn()];
+    });
   });
+  
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -113,8 +127,16 @@ describe("api get test", () => {
     axios.get.mockRejectedValue(new Error("Network Error"));
     const error = new Error("API request failed");
     axios.get.mockRejectedValueOnce(error);
+
+    render(<Modal />);
+
     await waitFor(() => {
-      expect(mockSetResponseData).not.toHaveBeenCalled();
+      expect(mockSetResponseData).toHaveBeenCalledWith([]);
+
     });
-  });
+
+    screen.debug(); 
+    expect(toast.error).toHaveBeenCalledWith("API'den veri alınırken hata oluştu");
+    });
+
 });

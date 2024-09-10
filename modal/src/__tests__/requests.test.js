@@ -1,11 +1,19 @@
 import axios from "axios";
 import { BookSectionCropReport } from "../api/requests";
+import { toast } from "react-toastify";
+
+jest.mock("react-toastify", () => ({
+  toast: {
+    success: jest.fn(),
+    error: jest.fn(),
+  },
+}));
 
 jest.mock("axios");
 jest.mock("../config/config.js", () => ({
-    API_URL: 'https://mocked-url.com', 
-    TOKEN: { Authorization: 'Bearer mock-token' } 
-  }));
+  API_URL: "https://mocked-url.com",
+  TOKEN: { Authorization: "Bearer mock-token" },
+}));
 
 describe("BookSectionCropReport function", () => {
   const API_URL = "https://mocked-url.com";
@@ -28,11 +36,15 @@ describe("BookSectionCropReport function", () => {
     };
     axios.post.mockResolvedValue(mockResponse);
     await BookSectionCropReport(data);
-    expect(axios.post).toHaveBeenCalledWith(`${API_URL}/createreportquestionrequest`, data, {
-      headers: {
-        Authorization: 'Bearer [object Object]',
-      },
-    });
+    expect(axios.post).toHaveBeenCalledWith(
+      `${API_URL}/createreportquestionrequest`,
+      data,
+      {
+        headers: {
+          Authorization: "Bearer [object Object]",
+        },
+      }
+    );
   });
 
   it("should log the response data correctly", async () => {
@@ -55,6 +67,7 @@ describe("BookSectionCropReport function", () => {
       "Response Message:",
       mockResponse.data.ResponseMessage
     );
+    expect(toast.success).toHaveBeenCalledWith("Yorum gönderildi!");
   });
 
   it("should log an error when the API request fails", async () => {
@@ -67,5 +80,6 @@ describe("BookSectionCropReport function", () => {
       "BookSectionCropReport error ",
       mockError
     );
+    expect(toast.error).toHaveBeenCalledWith("API'ye veri gönderilirken hata oluştu");
   });
 });
