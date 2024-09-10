@@ -11,6 +11,11 @@ describe("checkItem component", () => {
   beforeEach(() => {
     setIsCheckedMock = jest.fn();
   });
+  
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("should calls setIsChecked with item.Id when span is clicked", () => {
     const itemMock = { Id: 1, Name: "String", DescriptionStatus: false };
     render(<CheckItem item={itemMock} setIsChecked={setIsCheckedMock} />);

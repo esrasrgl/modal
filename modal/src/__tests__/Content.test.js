@@ -31,9 +31,11 @@ describe("Content Component Tests", () => {
       />
     );
   });
+
   afterEach(() => {
     jest.clearAllMocks();
   });
+
   it("should render correctly", async () => {
     const checkTitle = screen.getByText("Bir Problemle ", { exact: false });
     expect(checkTitle).toBeInTheDocument();

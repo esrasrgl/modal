@@ -39,6 +39,7 @@ describe("modal test ", () => {
       <Modal onClose={mockOnClose} responseData={mockResponseData} />
     );
   });
+  
   afterEach(() => {
     jest.clearAllMocks();
   });

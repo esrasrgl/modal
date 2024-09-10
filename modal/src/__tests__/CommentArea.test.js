@@ -7,6 +7,10 @@ describe("commenArea component", () => {
   beforeEach(() => {
     mockHandle = jest.fn();
   });
+  
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
   it("shoul render correctly", () => {
     render(<CommentArea message={message} handleChange={mockHandle} />);
