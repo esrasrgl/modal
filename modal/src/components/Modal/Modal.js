@@ -8,6 +8,7 @@ import AdminPanelPage from "../../enums/AdminPanelPage";
 import { useEffect } from "react";
 import { getReportIssueType } from "../../api/requests";
 import { BookSectionCropReport } from "../../api/requests";
+import { toast } from "react-toastify";
 
 export default function Modal({ onClose }) {
   const [message, setMessage] = useState("");
@@ -30,12 +31,20 @@ export default function Modal({ onClose }) {
     fetchData();
   }, []);
 
-  const handleSubmit = () => {
+  const selectedItems = () => {
     const selectedItems = responseData
       .filter((item) => item.DescriptionStatus)
       .map((item) => item.Id);
 
     const sortedItems = [...selectedItems].sort((a, b) => a - b);
+    return sortedItems;
+  };
+
+  const handleSubmit = () => {
+    const sortedItems = selectedItems();
+    if (sortedItems.length === 0) {
+      return toast.warning("Lütfen seçim yapınız");
+    }
 
     const data = {
       Message: message,
