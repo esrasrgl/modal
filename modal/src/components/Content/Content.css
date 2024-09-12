@@ -18,7 +18,7 @@
   justify-content: space-between;
   gap: 12px;
 }
-h1 {
+.h1 {
   margin: 0;
   height: 24px;
   /*styleName: WEB/H2/Semi Bold;*/
@@ -38,7 +38,7 @@ h1 {
   flex-direction: row;
   flex: 1;
 }
-textarea {
+.textarea {
   width: 100%;
   font-size: 16px;
   font-weight: 400;
@@ -49,7 +49,7 @@ textarea {
   resize: none;
   font-family: inherit;
 }
-textarea::-webkit-input-placeholder {
+.textarea::-webkit-input-placeholder {
   color: #c4c4c4;
   width: 100%;
 }
@@ -59,7 +59,7 @@ textarea::-webkit-input-placeholder {
   justify-content: space-between;
   gap: 8px;
 }
-span {
+.span {
   flex: 1;
   font-size: 16px;
   font-weight: 400;

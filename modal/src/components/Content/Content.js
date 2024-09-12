@@ -24,7 +24,7 @@ export const Content = ({
   return (
     <div className="container">
       <div className="content">
-        <h1>Bir Problemle mi Karşılaştın? 🤔</h1>
+        <h1 className="h1">Bir Problemle mi Karşılaştın? 🤔</h1>
         {isLoading ? (
         <p className="loading">Loading ...</p>
       ):(<>
@@ -35,7 +35,7 @@ export const Content = ({
       </>)}
       </div>
       <div className="comment">
-        <h1>Yorum Yapabilirsin</h1>
+        <h1 className="h1">Yorum Yapabilirsin</h1>
         <CommentArea message={message} handleChange={handleChange} />
       </div>
     </div>

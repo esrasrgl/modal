@@ -5,14 +5,17 @@ import "../ToolTip/ToolTip.css";
 export default function CheckItem({ item, setIsChecked }) {
   return (
     <div data-testid="check-item" className="item-container">
-      <label
-        style={{ cursor: "pointer" }}
-        onClick={() => setIsChecked(item.Id)}
-      >
+      <label style={style} onClick={() => setIsChecked(item.Id)}>
         {item.DescriptionStatus ? <SquareCheckSvg /> : <SquareSvg />}
       </label>
-      <span onClick={() => setIsChecked(item.Id)}>{item.Name}</span>
+      <span className="span" onClick={() => setIsChecked(item.Id)}>
+        {item.Name}
+      </span>
       <Tooltip text={item.Description} />
     </div>
   );
 }
+
+const style = {
+  cursor: "pointer",
+};

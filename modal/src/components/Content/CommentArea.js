@@ -5,6 +5,7 @@ export const CommentArea = ({ message, handleChange }) => {
     <div className="text-container">
       <PenSvg />
       <textarea
+      className="textarea"
         placeholder="yorumlarını bu alana girebilirsin..."
         value={message}
         onChange={handleChange}
