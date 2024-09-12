@@ -1,5 +1,5 @@
 import React from "react";
-import CloseModalSvg from "../../Svg/CloseModalSvg";
+import { CloseModalSvg } from "../../Svg";
 
 export const Header = ({ onClose }) => {
   return (

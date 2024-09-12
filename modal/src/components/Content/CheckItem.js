@@ -1,5 +1,4 @@
-import SquareCheckSvg from "../../Svg/SquareCheckSvg";
-import SquareSvg from "../../Svg/SquareSvg";
+import { SquareCheckSvg, SquareSvg } from "../../Svg";
 import Tooltip from "../ToolTip/ToolTip";
 import "../ToolTip/ToolTip.css";
 

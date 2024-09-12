@@ -1,5 +1,5 @@
 import React from 'react';
-import InfoIconSvg from "../../Svg/InfoIconSvg";
+import { InfoIconSvg } from '../../Svg';
 
 const Tooltip = ({ text }) => (
   <div className="tooltip-container">

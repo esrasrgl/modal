@@ -1,9 +1,9 @@
-import Pen from "../../Svg/PenSvg";
+import { PenSvg } from "../../Svg";
 
 export const CommentArea = ({ message, handleChange }) => {
   return (
     <div className="text-container">
-      <Pen />
+      <PenSvg />
       <textarea
         placeholder="yorumlarını bu alana girebilirsin..."
         value={message}
