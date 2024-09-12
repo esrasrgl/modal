@@ -9,7 +9,10 @@ jest.mock("react-toastify", () => ({
   },
 }));
 
-jest.mock("axios");
+jest.mock("axios", () => ({
+  post: jest.fn(),
+}));
+
 jest.mock("../config/config.js", () => ({
   API_URL: "https://mocked-url.com",
   TOKEN: { Authorization: "Bearer mock-token" },

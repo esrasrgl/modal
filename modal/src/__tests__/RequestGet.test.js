@@ -11,7 +11,9 @@ jest.mock("react-toastify", () => ({
   },
 }));
 
-jest.mock("axios");
+jest.mock("axios", () => ({
+  get: jest.fn(),
+}));
 
 jest.mock("react", () => ({
   ...jest.requireActual("react"),
