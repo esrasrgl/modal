@@ -5,32 +5,12 @@ import { Buttons } from "../Footer/Buttons";
 import { Content } from "../Content/Content";
 import { useState } from "react";
 import AdminPanelPage from "../../enums/AdminPanelPage";
-import { useEffect } from "react";
-import { getReportIssueType } from "../../api/requests";
 import { BookSectionCropReport } from "../../api/requests";
 import { toast } from "react-toastify";
 
-export default function Modal({ onClose }) {
+export default function Modal({ onClose, responseData, isLoading, setResponseData }) {
   const [message, setMessage] = useState("");
-  const [responseData, setResponseData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const result = await getReportIssueType();
-        setResponseData(result);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("useEffect error:", error);
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
+  
   const selectedItems = () => {
     const selectedItems = responseData
       .filter((item) => item.DescriptionStatus)

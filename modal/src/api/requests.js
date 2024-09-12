@@ -21,8 +21,7 @@ export const getReportIssueType = async () => {
     return updatedData;
   } catch (error) {
     console.log("getReportIssueType error ", error);
-    toast.error("API'den veri alınırken hata oluştu");
-    return [];
+    throw new Error(`Failed to fetch report issue type: ${error.message}`);
   }
 };
 
