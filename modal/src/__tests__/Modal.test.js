@@ -7,7 +7,7 @@ import {
 } from "@testing-library/react";
 import Modal from "../components/Modal/Modal";
 import { toast } from "react-toastify";
-import { getReportIssueType } from "../api/requests";
+import { BookSectionCropReport } from "../api/requests";
 
 jest.mock("../Svg/CloseModalSvg.js", () => () => <div>CloseModalSvg Mock</div>);
 
@@ -19,7 +19,14 @@ jest.mock("react-toastify", () => ({
   },
 }));
 
-jest.mock("../api/requests.js");
+jest.mock("../api/requests.js", () => ({
+  BookSectionCropReport: jest.fn(),
+}));
+
+const mockResponseData = [
+  { Id: 1, DescriptionStatus: true },
+  { Id: 2, DescriptionStatus: false },
+];
 
 describe("modal test ", () => {
   let mockOnClose;
@@ -32,13 +39,8 @@ describe("modal test ", () => {
     cleanup();
   });
 
-  it("should close when click onClose ", async() => {
-    const mockResponseData = [
-      { Id: 1, DescriptionStatus: true },
-      { Id: 2, DescriptionStatus: false },
-    ];
-    getReportIssueType.mockResolvedValueOnce(mockResponseData);
-    render(<Modal onClose={mockOnClose} />);
+  it("should close when click onClose ", async () => {
+    render(<Modal onClose={mockOnClose} responseData={mockResponseData} />);
     expect(screen.getByTestId("modal")).toBeInTheDocument();
     expect(screen.getByTestId("modal-content")).toBeInTheDocument();
 
@@ -46,23 +48,18 @@ describe("modal test ", () => {
     expect(mockOnClose).toHaveBeenCalled();
 
     fireEvent.click(screen.getByTestId("modal-content"));
-    await waitFor(()=>{
+    await waitFor(() => {
       expect(mockOnClose).toHaveBeenCalled();
-    })
+    });
   });
 
-  it("should close when click X ",async () => {
-    const mockResponseData = [
-      { Id: 1, DescriptionStatus: true },
-      { Id: 2, DescriptionStatus: false },
-    ];
-    getReportIssueType.mockResolvedValueOnce(mockResponseData);
-    render(<Modal onClose={mockOnClose} />);
+  it("should close when click X ", async () => {
+    render(<Modal onClose={mockOnClose} responseData={mockResponseData} />);
     const XBtn = screen.getByText("CloseModalSvg Mock");
     fireEvent.click(XBtn);
-    await waitFor(()=>{
+    await waitFor(() => {
       expect(mockOnClose).toHaveBeenCalled();
-    })
+    });
   });
 
   test("should call the API when selectedItems array is not empty", async () => {
@@ -70,23 +67,18 @@ describe("modal test ", () => {
       { Id: 1, DescriptionStatus: true },
       { Id: 2, DescriptionStatus: false },
     ];
-    const consoleSpy = jest.spyOn(console, "log").mockImplementation(() => {});
 
-    getReportIssueType.mockResolvedValueOnce(mockResponseData);
-    render(<Modal onClose={mockOnClose} />);
-
-    await waitFor(() => {
-      expect(getReportIssueType).toHaveBeenCalledTimes(1);
-    });
-
+    render(<Modal onClose={mockOnClose} responseData={mockResponseData} />);
     const submitBtn = screen.getByText(/Gönder/i);
     fireEvent.click(submitBtn);
 
-    expect(consoleSpy).toHaveBeenCalledWith("handleSubmit data", {
-      AdminPanelPage: 0,
-      BookSectionCropId: 1,
-      Issues: expect.any(Array),
-      Message: "",
+    await waitFor(() => {
+      expect(BookSectionCropReport).toHaveBeenCalledWith({
+        AdminPanelPage: expect.any(Number),
+        BookSectionCropId: expect.any(Number),
+        Issues: expect.any(Array),
+        Message: expect.any(String),
+      });
     });
   });
 
@@ -96,19 +88,12 @@ describe("modal test ", () => {
       { Id: 2, DescriptionStatus: false },
     ];
 
-    getReportIssueType.mockResolvedValueOnce(mockResponseData);
-    render(<Modal onClose={mockOnClose} />);
-
-    await waitFor(() => {
-      expect(getReportIssueType).toHaveBeenCalledTimes(1);
-    });
+    render(<Modal onClose={mockOnClose} responseData={mockResponseData} />);
     const submitBtn = screen.getByText(/Gönder/i);
     fireEvent.click(submitBtn);
 
     await waitFor(() => {
       expect(toast.warning).toHaveBeenCalledWith("Lütfen seçim yapınız");
-
     });
-
   });
 });

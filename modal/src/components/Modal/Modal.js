@@ -8,32 +8,37 @@ import AdminPanelPage from "../../enums/AdminPanelPage";
 import { BookSectionCropReport } from "../../api/requests";
 import { toast } from "react-toastify";
 
-export default function Modal({ onClose, responseData, isLoading, setResponseData }) {
+export default function Modal({
+  onClose,
+  responseData,
+  isLoading,
+  setResponseData,
+}) {
   const [message, setMessage] = useState("");
-  
+
   const selectedItems = () => {
     const selectedItems = responseData
       .filter((item) => item.DescriptionStatus)
       .map((item) => item.Id);
 
-    const sortedItems = [...selectedItems].sort((a, b) => a - b);
-    return sortedItems;
+    return [...selectedItems].sort((a, b) => a - b);
   };
 
   const handleSubmit = () => {
     const sortedItems = selectedItems();
-    if (sortedItems.length === 0) {
-      return toast.warning("Lütfen seçim yapınız");
-    }
 
-    const data = {
-      Message: message,
-      Issues: sortedItems,
-      BookSectionCropId: 1,
-      AdminPanelPage: AdminPanelPage.QuestionSubTopicSelection,
-    };
-    BookSectionCropReport(data);
-    console.log("handleSubmit data", data);
+    if (!sortedItems.length) {
+      return toast.warning("Lütfen seçim yapınız");
+    } else {
+      const data = {
+        Message: message,
+        Issues: sortedItems,
+        BookSectionCropId: 1,
+        AdminPanelPage: AdminPanelPage.QuestionSubTopicSelection,
+      };
+      BookSectionCropReport(data);
+      console.log("handleSubmit data", data);
+    }
   };
 
   return (
