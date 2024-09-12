@@ -4,7 +4,7 @@ import Modal from "./components/Modal/Modal";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getReportIssueType } from "./api/requests";
-import { toast } from "react-toastify";
+import { Texts } from "./text/tr";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -23,7 +23,6 @@ function App() {
     } catch (error) {
       console.error("fetchData error:", error);
       setIsLoading(false);
-      toast.error("API'den veri alınırken hata oluştu");
     }
   };
 
@@ -31,7 +30,7 @@ function App() {
     <div>
       <ToastContainer />
       <button className="modalBtn" onClick={fetchData}>
-        Open Modal
+        {Texts.open_modal}
       </button>
       {showModal && (
         <>

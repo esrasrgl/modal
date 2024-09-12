@@ -1,4 +1,5 @@
 import { PenSvg } from "../../Svg";
+import { Texts } from "../../text/tr";
 
 export const CommentArea = ({ message, handleChange }) => {
   return (
@@ -6,7 +7,7 @@ export const CommentArea = ({ message, handleChange }) => {
       <PenSvg />
       <textarea
       className="textarea"
-        placeholder="yorumlarını bu alana girebilirsin..."
+        placeholder={Texts.placeHolder_comment}
         value={message}
         onChange={handleChange}
       />

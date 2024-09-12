@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { Content } from "../components/Content/Content";
+import { Texts } from "../text/tr";
 
 const mockResponseData = [
   {
@@ -37,12 +38,10 @@ describe("Content Component Tests", () => {
   });
 
   it("should render correctly", async () => {
-    const checkTitle = screen.getByText("Bir Problemle ", { exact: false });
+    const checkTitle = screen.getByText(Texts.title_2);
     expect(checkTitle).toBeInTheDocument();
 
-    const commentTitle = screen.getByText("Yorum Yapabilirsin", {
-      exact: false,
-    });
+    const commentTitle = screen.getByText(Texts.title_2);
     expect(commentTitle).toBeInTheDocument();
   });
 
@@ -50,9 +49,7 @@ describe("Content Component Tests", () => {
     const checkItems = screen.getAllByTestId("check-item");
     expect(checkItems).toHaveLength(mockResponseData.length);
     expect(
-      screen.getByPlaceholderText("yorumlarını ", {
-        exact: false,
-      })
+      screen.getByPlaceholderText(Texts.placeHolder_comment)
     ).toBeInTheDocument();
   });
 
@@ -74,9 +71,7 @@ describe("Content Component Tests", () => {
   });
 
   it("should set message", () => {
-    const textArea = screen.getByPlaceholderText("yorumlarını ", {
-      exact: false,
-    });
+    const textArea = screen.getByPlaceholderText(Texts.placeHolder_comment);
     const value = "new text";
     fireEvent.change(textArea, { target: { value: value } });
     expect(mockSetMessage).toHaveBeenCalledWith(value);

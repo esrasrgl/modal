@@ -8,6 +8,7 @@ import {
 import Modal from "../components/Modal/Modal";
 import { toast } from "react-toastify";
 import { BookSectionCropReport } from "../api/requests";
+import { Texts } from "../text/tr";
 
 jest.mock("../Svg/CloseModalSvg.js", () => () => <div>CloseModalSvg Mock</div>);
 
@@ -69,7 +70,7 @@ describe("modal test ", () => {
     ];
 
     render(<Modal onClose={mockOnClose} responseData={mockResponseData} />);
-    const submitBtn = screen.getByText(/Gönder/i);
+    const submitBtn = screen.getByText(Texts.submit_button);
     fireEvent.click(submitBtn);
 
     await waitFor(() => {
@@ -89,11 +90,11 @@ describe("modal test ", () => {
     ];
 
     render(<Modal onClose={mockOnClose} responseData={mockResponseData} />);
-    const submitBtn = screen.getByText(/Gönder/i);
+    const submitBtn = screen.getByText(Texts.submit_button);
     fireEvent.click(submitBtn);
 
     await waitFor(() => {
-      expect(toast.warning).toHaveBeenCalledWith("Lütfen seçim yapınız");
+      expect(toast.warning).toHaveBeenCalledWith(Texts.warning_select);
     });
   });
 });

@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { CommentArea } from "../components/Content/CommentArea";
+import { Texts } from "../text/tr";
 
 describe("commenArea component", () => {
   let message = "";
@@ -15,9 +16,7 @@ describe("commenArea component", () => {
   it("shoul render correctly", () => {
     render(<CommentArea message={message} handleChange={mockHandle} />);
 
-    const textarea = screen.getByPlaceholderText("yorumlarını ", {
-      exact: false,
-    });
+    const textarea = screen.getByPlaceholderText(Texts.placeHolder_comment);
     expect(textarea).toBeInTheDocument();
     expect(textarea).toBeInTheDocument();
   });

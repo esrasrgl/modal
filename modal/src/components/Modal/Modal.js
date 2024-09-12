@@ -7,6 +7,7 @@ import { useState } from "react";
 import AdminPanelPage from "../../enums/AdminPanelPage";
 import { BookSectionCropReport } from "../../api/requests";
 import { toast } from "react-toastify";
+import { Texts } from "../../text/tr";
 
 export default function Modal({
   onClose,
@@ -28,7 +29,7 @@ export default function Modal({
     const sortedItems = selectedItems();
 
     if (!sortedItems.length) {
-      return toast.warning("Lütfen seçim yapınız");
+      return toast.warning(Texts.warning_select);
     } else {
       const data = {
         Message: message,

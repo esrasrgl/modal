@@ -1,8 +1,9 @@
-import React, { useState as useStateMock } from "react";
-import { render, screen, waitFor } from "@testing-library/react";
-import Modal from "../components/Modal/Modal";
+import { waitFor } from "@testing-library/react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { getReportIssueType } from "../api/requests";
+import "../config/config";
+import { Texts } from "../text/tr";
 
 jest.mock("react-toastify", () => ({
   toast: {
@@ -15,9 +16,9 @@ jest.mock("axios", () => ({
   get: jest.fn(),
 }));
 
-jest.mock("react", () => ({
-  ...jest.requireActual("react"),
-  useState: jest.fn(),
+jest.mock("../config/config", () => ({
+  API_URL: "https://mocked-url.com",
+  TOKEN: { Authorization: "Bearer mock-token" },
 }));
 
 const mockResponseData = [
@@ -29,20 +30,7 @@ const mockResponseData = [
 ];
 
 describe("getReportIssueType function", () => {
-  const mockSetResponseData = jest.fn();
-  const mockSetMessage = jest.fn();
-  const mockSetIsLoading = jest.fn();
-
-  beforeEach(() => {
-    useStateMock.mockImplementation((initialValue) => {
-      if (initialValue === "") return [initialValue, mockSetMessage];
-      if (Array.isArray(initialValue))
-        return [initialValue, mockSetResponseData];
-      if (typeof initialValue === "boolean")
-        return [initialValue, mockSetIsLoading];
-      return [initialValue, jest.fn()];
-    });
-  });
+  const API_URL = "https://mocked-url.com";
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -57,33 +45,34 @@ describe("getReportIssueType function", () => {
       },
     });
 
-    render(<Modal />);
-    await waitFor(() => {
-      expect(mockSetResponseData).toHaveBeenCalledWith([
-        {
-          Description: "String",
-          Id: 1,
-          Name: "String",
-          DescriptionStatus: false,
-        },
-      ]);
+    const result = await getReportIssueType();
+
+    expect(axios.get).toHaveBeenCalledWith(`${API_URL}/getreportissuetype`, {
+      headers: {
+        Authorization: "Bearer [object Object]",
+      },
     });
+
+    expect(result).toEqual([
+      {
+        Description: "String",
+        Id: 1,
+        Name: "String",
+        DescriptionStatus: false,
+      },
+    ]);
   });
 
   it("handles errors from the api call", async () => {
     axios.get.mockRejectedValue(new Error("Network Error"));
     const error = new Error("API request failed");
     axios.get.mockRejectedValueOnce(error);
-
-    render(<Modal />);
+    await expect(getReportIssueType()).rejects.toThrow(
+      `Failed to fetch report issue type: ${error.message}`
+    );
 
     await waitFor(() => {
-      expect(mockSetResponseData).toHaveBeenCalledWith([]);
+      expect(toast.error).toHaveBeenCalledWith(Texts.get_error);
     });
-
-    screen.debug();
-    expect(toast.error).toHaveBeenCalledWith(
-      "API'den veri alınırken hata oluştu"
-    );
   });
 });

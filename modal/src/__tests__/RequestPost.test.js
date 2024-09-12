@@ -1,6 +1,7 @@
 import axios from "axios";
 import { BookSectionCropReport } from "../api/requests";
 import { toast } from "react-toastify";
+import { Texts } from "../text/tr";
 
 jest.mock("react-toastify", () => ({
   toast: {
@@ -83,6 +84,6 @@ describe("BookSectionCropReport function", () => {
       "BookSectionCropReport error ",
       mockError
     );
-    expect(toast.error).toHaveBeenCalledWith("API'ye veri gönderilirken hata oluştu");
+    expect(toast.error).toHaveBeenCalledWith(Texts.post_error);
   });
 });

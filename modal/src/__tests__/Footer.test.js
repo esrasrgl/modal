@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { Buttons } from "../components/Footer/Buttons";
+import { Texts } from "../text/tr";
 
 describe("buttons component", () => {
   
@@ -13,7 +14,7 @@ describe("buttons component", () => {
 
     render(<Buttons onClose={onCloseMock} submit={submitMock} />);
 
-    const closeBtn = screen.getByText("Kapat");
+    const closeBtn = screen.getByText(Texts.close_button);
     fireEvent.click(closeBtn);
 
     expect(onCloseMock).toHaveBeenCalled();

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_URL, TOKEN } from "../config/config";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
+import { Texts } from "../text/tr";
 
 export const getReportIssueType = async () => {
   try {
@@ -21,6 +22,7 @@ export const getReportIssueType = async () => {
     return updatedData;
   } catch (error) {
     console.log("getReportIssueType error ", error);
+    toast.error(Texts.get_error);
     throw new Error(`Failed to fetch report issue type: ${error.message}`);
   }
 };
@@ -40,9 +42,9 @@ export const BookSectionCropReport = async (data) => {
     console.log("BookSectionCropReport: ");
     console.log("Response Status:", response.data.ResponseStatus);
     console.log("Response Message:", response.data.ResponseMessage);
-    toast.success("Yorum gönderildi!");
+    toast.success(Texts.post_success);
   } catch (error) {
     console.log("BookSectionCropReport error ", error);
-    toast.error("API'ye veri gönderilirken hata oluştu");
+    toast.error(Texts.post_error);
   }
 };
