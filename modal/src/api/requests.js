@@ -1,14 +1,16 @@
-import axios from "axios";
 import { API_URL, TOKEN } from "../config/config";
 import { toast } from "react-toastify";
 import { Texts } from "../text/tr";
+import apiRequest from "./rquestHelper";
 
 export const getReportIssueType = async () => {
   try {
-    const response = await axios.get(`${API_URL}/getreportissuetype`, {
-      headers: { Authorization: `Bearer ${TOKEN}` },
-    });
-    const { ResponseStatus, ResponseMessage, ResponseData } = response.data;
+    const url = `${API_URL}/getreportissuetype`;
+    const headers = { Authorization: `Bearer ${TOKEN}` };
+
+    const data = await apiRequest(url, "GET", null, headers);
+
+    const { ResponseStatus, ResponseMessage, ResponseData } = data;
     const updatedData = ResponseData.map((item) => ({
       ...item,
       DescriptionStatus: false, // for checkBox control
@@ -29,16 +31,12 @@ export const getReportIssueType = async () => {
 
 export const BookSectionCropReport = async (data) => {
   try {
-    const response = await axios.post(
-      `${API_URL}/createreportquestionrequest`,
-      data,
-      {
-        headers: {
-          Authorization: `Bearer ${TOKEN}`,
-          //'Content-Type': 'application/json',
-        },
-      }
-    );
+    const url = `${API_URL}/createreportquestionrequest`;
+    const headers = { Authorization: `Bearer ${TOKEN}` };
+
+    const response = await apiRequest(url, 'POST', data, headers);
+    console.log('Post response:', response);
+
     console.log("BookSectionCropReport: ");
     console.log("Response Status:", response.data.ResponseStatus);
     console.log("Response Message:", response.data.ResponseMessage);
