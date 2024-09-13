@@ -80,6 +80,57 @@ This diagram shows the internal structure of the modal and how different compone
    <img src="./componentStructer.png" alt="Component Structure" width="500" height="500" />
 </div>
 
+## Folder Structure :open_file_folder:
+
+```bash
+/src
+├── ___tests__
+│   ├── CheckItem.test.js
+│   ├── CommentArea.test.js
+│   ├── Content.test.js
+│   ├── Footer.test.js
+│   ├── Modal.test.js
+│   ├── RequestGet.test.js
+│   ├── RequestHelper.test.js
+│   └── RequestPost.test.js
+├── api
+│   ├── requests.js
+│   └── rquestHelper.js
+├── components
+│   ├── Content
+│   │      │── CheckItem.js
+│   │      │── CommentArea.js
+│   │      │── Content.css
+│   │      └── Content.js
+│   ├── Footer
+│   │      │── Buttons.css
+│   │      └── Buttons.js
+│   ├── Header
+│   │      └── Header.js
+│   ├── Modal
+│   │      │── Modal.css
+│   │      └── Modal.js
+│   └── ToolTip
+│          │── ToolTip.css
+│          └── ToolTip.js
+├── config
+│   └── config.js
+├── enums
+│   └── AdminPanelPage.js
+├── Svg
+│   ├── CloseModalSvg.js
+│   ├── index.js
+│   ├── InfoIconSvg.js
+│   ├── PenSvg.js
+│   ├── SquareCheckSvg.js
+│   └── SquareSvg.js
+├── text
+│   └── tr.js
+├── App.css
+├── App.js
+└── App.test.js
+```
+
 ## Bugs
 
 During test writing, even if `act` is not used explicitly, `screen` and `render` may use `act` in the background.
@@ -91,3 +142,14 @@ To resolve this issue, install the latest version of `@testing-library/react`:
 ```bash
 npm install --save-dev @testing-library/react
 ```
+:warning: **Warning**: Wi-Fi IP Address Not Displayed When Running on Mobile Devices
+
+**Solution**:
+To resolve this issue on Windows, follow these steps:
+
+- Open Control Panel > System and Security > Windows Defender Firewall.
+- On the left panel, click on Allow an app through the firewall.
+- Restart the application and try accessing it via the Wi-Fi IP address on your mobile device.
+  
+ :link: You can find more details [here](https://stackoverflow.com/questions/47412363/how-to-open-a-create-react-app-from-another-computer-connected-to-the-same-netwo).
+
