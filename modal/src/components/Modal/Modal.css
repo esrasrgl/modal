@@ -16,6 +16,8 @@
   justify-content: center;
   align-items: center;
   position: fixed;
+  max-height: 150vh;
+  overflow-y: auto;
 }
 .modal-content {
   background-color: #ffffff;
