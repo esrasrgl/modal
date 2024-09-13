@@ -55,7 +55,7 @@ describe("BookSectionCropReport function", () => {
   it("should log the response data correctly", async () => {
     const mockResponse = {
       data: {
-        ResponseStatus: "Success",
+        ResponseStatus: 0,
         ResponseMessage: "Data received successfully",
       },
     };
