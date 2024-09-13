@@ -2,6 +2,7 @@ import axios from "axios";
 import { BookSectionCropReport } from "../api/requests";
 import { toast } from "react-toastify";
 import { Texts } from "../text/tr";
+import apiRequest from "../api/rquestHelper";
 
 jest.mock("react-toastify", () => ({
   toast: {
@@ -19,6 +20,8 @@ jest.mock("../config/config.js", () => ({
   TOKEN: { Authorization: "Bearer mock-token" },
 }));
 
+jest.mock( "../api/rquestHelper");
+
 describe("BookSectionCropReport function", () => {
   const API_URL = "https://mocked-url.com";
   const data = { key: "value" };
@@ -31,22 +34,20 @@ describe("BookSectionCropReport function", () => {
     jest.restoreAllMocks();
   });
 
-  it("should render correctly", async () => {
+  it("should apiRequest correctly call the POST data", async () => {
     const mockResponse = {
       data: {
         ResponseStatus: "Success",
         ResponseMessage: "Data received successfully",
       },
     };
-    axios.post.mockResolvedValue(mockResponse);
+    apiRequest.mockResolvedValue(mockResponse);
     await BookSectionCropReport(data);
-    expect(axios.post).toHaveBeenCalledWith(
-      `${API_URL}/createreportquestionrequest`,
+    expect(apiRequest).toHaveBeenCalledWith(
+      `${API_URL}/createreportquestionrequest`,'POST',
       data,
       {
-        headers: {
-          Authorization: "Bearer [object Object]",
-        },
+        Authorization: "Bearer [object Object]",
       }
     );
   });
@@ -59,7 +60,7 @@ describe("BookSectionCropReport function", () => {
       },
     };
 
-    axios.post.mockResolvedValue(mockResponse);
+   apiRequest.mockResolvedValue(mockResponse);
     await BookSectionCropReport(data);
 
     expect(console.log).toHaveBeenCalledWith("BookSectionCropReport: ");
@@ -71,13 +72,13 @@ describe("BookSectionCropReport function", () => {
       "Response Message:",
       mockResponse.data.ResponseMessage
     );
-    expect(toast.success).toHaveBeenCalledWith("Yorum gönderildi!");
+    expect(toast.success).toHaveBeenCalledWith(Texts.post_success);
   });
 
   it("should log an error when the API request fails", async () => {
     const mockError = new Error("API request failed");
 
-    axios.post.mockRejectedValue(mockError);
+    apiRequest.mockRejectedValue(mockError);
     await BookSectionCropReport(data);
 
     expect(console.log).toHaveBeenCalledWith(

@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { getReportIssueType } from "../api/requests";
 import "../config/config";
 import { Texts } from "../text/tr";
+import apiRequest from "../api/rquestHelper";
 
 jest.mock("react-toastify", () => ({
   toast: {
@@ -21,6 +22,8 @@ jest.mock("../config/config", () => ({
   TOKEN: { Authorization: "Bearer mock-token" },
 }));
 
+jest.mock("../api/rquestHelper");
+
 const mockResponseData = [
   {
     Description: "String",
@@ -36,22 +39,20 @@ describe("getReportIssueType function", () => {
     jest.clearAllMocks();
   });
 
-  it("should axios get data and updates state", async () => {
-    axios.get.mockResolvedValue({
-      data: {
-        ResponseStatus: 1,
-        ResponseMessage: "Succes",
-        ResponseData: mockResponseData,
-      },
+  it("should apiRequest correctly call get data and update state", async () => {
+    apiRequest.mockResolvedValue({
+      ResponseStatus: 1,
+      ResponseMessage: "Succes",
+      ResponseData: mockResponseData,
     });
 
     const result = await getReportIssueType();
-
-    expect(axios.get).toHaveBeenCalledWith(`${API_URL}/getreportissuetype`, {
-      headers: {
-        Authorization: "Bearer [object Object]",
-      },
-    });
+    expect(apiRequest).toHaveBeenCalledWith(
+      `${API_URL}/getreportissuetype`,
+      "GET",
+      null,
+      { Authorization: "Bearer [object Object]" }
+    );
 
     expect(result).toEqual([
       {
@@ -63,10 +64,9 @@ describe("getReportIssueType function", () => {
     ]);
   });
 
-  it("handles errors from the api call", async () => {
-    axios.get.mockRejectedValue(new Error("Network Error"));
+  it("should handle errors correctly in getReportIssueType", async () => {
     const error = new Error("API request failed");
-    axios.get.mockRejectedValueOnce(error);
+    apiRequest.mockRejectedValueOnce(error);
     await expect(getReportIssueType()).rejects.toThrow(
       `Failed to fetch report issue type: ${error.message}`
     );
@@ -75,4 +75,11 @@ describe("getReportIssueType function", () => {
       expect(toast.error).toHaveBeenCalledWith(Texts.get_error);
     });
   });
+
+  test('should throw an error if request fails', async () => {
+    const error = new Error('Network error');
+    apiRequest.mockRejectedValueOnce(error);
+    await expect(getReportIssueType()).rejects.toThrow(`Failed to fetch report issue type: ${error.message}`);
+  });
+  
 });
