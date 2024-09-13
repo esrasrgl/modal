@@ -33,12 +33,33 @@ This project provides a dynamic modal component built with React.
    export const API_URL = "https://api.example.com";
    export const TOKEN = "your_token_id";
    ```
+4. Customizing Data for API Requests
 
-4. Start the project:
+   To post data to the API, you'll need to modify the parameters being sent. This can be done in the relevant functions in the `src/components/Modal/Modal.js` file.
+   
+   In the `handleSubmit` function where data is being posted to the API, replace the sample data with your custom parameters:
+   
+   ```javascript
+   // Data being posted
+       const data = {
+         ...
+         BookSectionCropId: 1,
+         AdminPanelPage: AdminPanelPage.QuestionSubTopicSelection,
+       };
+   ```
+   ```javascript
+   // Replace with your custom parameters
+   const data = {
+     ...
+     BookSectionCropId: yourBookSectionId,
+     AdminPanelPage: AdminPanelPage.yourSelection, //src/enums
+   };
+   ```
+5. Start the project:
    ```bash
    npm start
    ```
-
+   
 ## Running Tests
 
 To run tests:
@@ -50,7 +71,6 @@ npm test
 Detailed Reporting:
 
 📜 You can find a description of the project tests in the  [linked document](https://docs.google.com/document/d/10OOTfRzK4lCq0L8eiTEr5-Aq40fH19GRxUmd8StzoJM/edit).
-
 
 ## Component Structure
 
