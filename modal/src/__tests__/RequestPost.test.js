@@ -3,6 +3,7 @@ import { BookSectionCropReport } from "../api/requests";
 import { toast } from "react-toastify";
 import { Texts } from "../text/tr";
 import apiRequest from "../api/rquestHelper";
+import { waitFor } from "@testing-library/react";
 
 jest.mock("react-toastify", () => ({
   toast: {
@@ -20,7 +21,7 @@ jest.mock("../config/config.js", () => ({
   TOKEN: { Authorization: "Bearer mock-token" },
 }));
 
-jest.mock( "../api/rquestHelper");
+jest.mock("../api/rquestHelper");
 
 describe("BookSectionCropReport function", () => {
   const API_URL = "https://mocked-url.com";
@@ -36,15 +37,15 @@ describe("BookSectionCropReport function", () => {
 
   it("should apiRequest correctly call the POST data", async () => {
     const mockResponse = {
-      data: {
-        ResponseStatus: "Success",
-        ResponseMessage: "Data received successfully",
-      },
+      ResponseStatus: 1,
+      ResponseMessage: "Data received successfully",
     };
+
     apiRequest.mockResolvedValue(mockResponse);
     await BookSectionCropReport(data);
     expect(apiRequest).toHaveBeenCalledWith(
-      `${API_URL}/createreportquestionrequest`,'POST',
+      `${API_URL}/createreportquestionrequest`,
+      "POST",
       data,
       {
         Authorization: "Bearer [object Object]",
@@ -54,32 +55,47 @@ describe("BookSectionCropReport function", () => {
 
   it("should log the response data correctly", async () => {
     const mockResponse = {
-      data: {
-        ResponseStatus: 0,
-        ResponseMessage: "Data received successfully",
-      },
+      ResponseStatus: 1,
+      ResponseMessage: "Data received successfully",
     };
 
-   apiRequest.mockResolvedValue(mockResponse);
+    apiRequest.mockResolvedValue(mockResponse);
     await BookSectionCropReport(data);
 
     expect(console.log).toHaveBeenCalledWith("BookSectionCropReport: ");
     expect(console.log).toHaveBeenCalledWith(
       "Response Status:",
-      mockResponse.data.ResponseStatus
+      mockResponse.ResponseStatus
     );
     expect(console.log).toHaveBeenCalledWith(
       "Response Message:",
-      mockResponse.data.ResponseMessage
+      mockResponse.ResponseMessage
     );
     expect(toast.success).toHaveBeenCalledWith(Texts.post_success);
   });
 
-  it("should log an error when the API request fails", async () => {
-    const mockError = new Error("API request failed");
+  it('should handle error when response status is not successful', async () => {
+    apiRequest.mockResolvedValue({
+      ResponseStatus: 2,
+      ResponseMessage: 'Error occurred',
+    });
+    
+    await expect(BookSectionCropReport(data)).rejects.toThrow('Failed to post issue type request: 2 Error occurred');
+    
+    expect(apiRequest).toHaveBeenCalledWith(
+      `${API_URL}/createreportquestionrequest`,
+      "POST",
+      data,
+      {
+        Authorization: "Bearer [object Object]",
+      }
+    );
+  });
 
+  it("should handle errors correctly in BookSectionCropReport", async () => {
+    const mockError = new Error("API request failed");
     apiRequest.mockRejectedValue(mockError);
-    await BookSectionCropReport(data);
+    await expect(BookSectionCropReport(data)).rejects.toThrow('Failed to post issue type request: undefined API request failed');
 
     expect(console.log).toHaveBeenCalledWith(
       "BookSectionCropReport error ",

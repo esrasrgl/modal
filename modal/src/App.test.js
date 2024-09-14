@@ -52,8 +52,8 @@ describe("App Component", () => {
     fireEvent.click(button);
 
     await waitFor(() => {
-      expect(getReportIssueType).toHaveBeenCalledTimes(1); // API çağrısı yapıldı
-      expect(consoleSpy).toHaveBeenCalledWith('fetchData error:', mockError); // Hata loglandı
+      expect(getReportIssueType).toHaveBeenCalledTimes(1);
+      expect(consoleSpy).toHaveBeenCalledWith('fetchData error:', mockError); 
     });
   });
 });

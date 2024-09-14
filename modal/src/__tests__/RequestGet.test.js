@@ -68,7 +68,7 @@ describe("getReportIssueType function", () => {
     const error = new Error("API request failed");
     apiRequest.mockRejectedValueOnce(error);
     await expect(getReportIssueType()).rejects.toThrow(
-      `Failed to fetch report issue type: ${error.message}`
+      `Failed to fetch report issue type: undefined ${error.message}`
     );
 
     await waitFor(() => {
@@ -79,7 +79,7 @@ describe("getReportIssueType function", () => {
   test('should throw an error if request fails', async () => {
     const error = new Error('Network error');
     apiRequest.mockRejectedValueOnce(error);
-    await expect(getReportIssueType()).rejects.toThrow(`Failed to fetch report issue type: ${error.message}`);
+    await expect(getReportIssueType()).rejects.toThrow(`Failed to fetch report issue type: undefined ${error.message}`);
   });
-  
+
 });

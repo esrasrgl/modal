@@ -97,4 +97,21 @@ describe("modal test ", () => {
       expect(toast.warning).toHaveBeenCalledWith(Texts.warning_select);
     });
   });
+
+  it("should handle error correctly and stop loading when BookSectionCropReport fails", async () => {
+    const mockError = new Error("API error");
+    const consoleSpy = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+
+    BookSectionCropReport.mockRejectedValueOnce(mockError);
+    render(<Modal onClose={mockOnClose} responseData={mockResponseData} />);
+    const button = screen.getByText(Texts.submit_button);
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(BookSectionCropReport).toHaveBeenCalledTimes(1);
+      expect(consoleSpy).toHaveBeenCalledWith("POST request error:", mockError);
+    });
+  });
 });
