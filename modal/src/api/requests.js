@@ -23,18 +23,16 @@ export const getReportIssueType = () => {
 
         return updatedData;
       } else {
-        console.error(
-          `API get status code: ${ResponseStatus}, Message: ${ResponseMessage}`
-        );
-        throw new Error(
-          `Unexpected Status: ${ResponseStatus}, Message: ${ResponseMessage}`
-        );
+        throw {
+          status: ResponseStatus,
+          message: ResponseMessage
+        };
       }
     })
     .catch((error) => {
       console.log("getReportIssueType error ", error);
       toast.error(Texts.get_error);
-      throw new Error(`Failed to fetch report issue type: ${error.message}`);
+      throw new Error(`Failed to fetch report issue type: ${error.status} ${error.message}`);
     });
 };
 
@@ -43,26 +41,27 @@ export const BookSectionCropReport = (data) => {
   const headers = { Authorization: `Bearer ${TOKEN}` };
 
   return apiRequest(url, "POST", data, headers)
-    .then((response) => {
-      const { ResponseStatus, ResponseMessage } = response.data;
+    .then((res) => {
 
-      if (ResponseStatus === 0) {
-        console.log("Post response:", response);
+      const { ResponseStatus, ResponseMessage } = res;
+
+      if (ResponseStatus === 1) {
+        console.log("Post response.res:", res);
         console.log("BookSectionCropReport: ");
         console.log("Response Status:", ResponseStatus);
         console.log("Response Message:", ResponseMessage);
         toast.success(Texts.post_success);
       } else {
-        console.error(
-          `API post status code: ${ResponseStatus}, Message: ${ResponseMessage}`
-        );
-        throw new Error(
-          `Unexpected Status: ${ResponseStatus}, Message: ${ResponseMessage}`
-        );
+        throw {
+          status: ResponseStatus,
+          message: ResponseMessage
+        };
       }
     })
     .catch((error) => {
       console.log("BookSectionCropReport error ", error);
       toast.error(Texts.post_error);
+      toast.error(error.message);
+      throw new Error(`Failed to post issue type request: ${error.status} ${error.message}`);
     });
 };

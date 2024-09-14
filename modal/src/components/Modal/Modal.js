@@ -25,7 +25,7 @@ export default function Modal({
     return [...selectedItems].sort((a, b) => a - b);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const sortedItems = selectedItems();
 
     if (!sortedItems.length) {
@@ -37,8 +37,13 @@ export default function Modal({
         BookSectionCropId: 1,
         AdminPanelPage: AdminPanelPage.QuestionSubTopicSelection,
       };
-      BookSectionCropReport(data);
-      console.log("handleSubmit data", data);
+
+      try {
+        await BookSectionCropReport(data);
+        console.log("handleSubmit data", data);
+      } catch (error) {
+        console.error("POST request error:", error);
+      }
     }
   };
 
