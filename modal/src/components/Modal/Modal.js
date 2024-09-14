@@ -4,7 +4,6 @@ import { Header } from "../Header/Header";
 import { Buttons } from "../Footer/Buttons";
 import { Content } from "../Content/Content";
 import { useState } from "react";
-import AdminPanelPage from "../../enums/AdminPanelPage";
 import { BookSectionCropReport } from "../../api/requests";
 import { toast } from "react-toastify";
 import { Texts } from "../../text/tr";
@@ -14,6 +13,8 @@ export default function Modal({
   responseData,
   isLoading,
   setResponseData,
+  BookSectionCropId,
+  AdminPanelPageSelection
 }) {
   const [message, setMessage] = useState("");
 
@@ -34,8 +35,8 @@ export default function Modal({
       const data = {
         Message: message,
         Issues: sortedItems,
-        BookSectionCropId: 1,
-        AdminPanelPage: AdminPanelPage.QuestionSubTopicSelection,
+        BookSectionCropId: BookSectionCropId,
+        AdminPanelPage: AdminPanelPageSelection,
       };
 
       try {

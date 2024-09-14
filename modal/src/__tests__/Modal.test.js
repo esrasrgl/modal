@@ -68,8 +68,16 @@ describe("modal test ", () => {
       { Id: 1, DescriptionStatus: true },
       { Id: 2, DescriptionStatus: false },
     ];
-
-    render(<Modal onClose={mockOnClose} responseData={mockResponseData} />);
+    const MockBookSectionCropId = 1;
+    const MockAdminPanelPageSelection = 1; //src/enums
+    render(
+      <Modal
+        onClose={mockOnClose}
+        responseData={mockResponseData}
+        BookSectionCropId={MockBookSectionCropId}
+        AdminPanelPageSelection={MockAdminPanelPageSelection}
+      />
+    );
     const submitBtn = screen.getByText(Texts.submit_button);
     fireEvent.click(submitBtn);
 
