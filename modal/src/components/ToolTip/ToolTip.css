@@ -4,7 +4,8 @@
 }
 .tooltip-text {
   visibility: hidden;
-  min-width:14rem;
+  max-width: 14rem;
+  width: 70vw;
   background: #fff2f0;
   color: #ee5942;
   font-size: 12px;
