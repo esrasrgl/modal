@@ -4,7 +4,7 @@
 }
 .tooltip-text {
   visibility: hidden;
-  width: 227px;
+  min-width:14rem;
   background: #fff2f0;
   color: #ee5942;
   font-size: 12px;
@@ -12,7 +12,6 @@
   line-height: 19px;
   text-align: left;
   box-shadow: 0px 1px 10px 0px #3757e226;
-  border-radius: 0px 16px 16px 16px;
   border: 1px 0px 0px 0px;
   border: 1px solid #fff2f0;
   padding: 10px;
@@ -29,4 +28,29 @@
 }
 .infoIcon {
   cursor: pointer;
+}
+
+/*web*/
+.tooltip-text {
+  top: 70%;
+  left: 100%;
+  border-radius: 0px 16px 16px 16px;
+}
+
+/* Mobile*/
+@media (max-width: 768px) {
+  .tooltip-text {
+    left: auto;
+    right: 100%;
+    border-radius: 16px 0px 16px 16px;
+  }
+}
+
+/* Tablet*/
+@media (min-width: 769px) and (max-width: 1024px) {
+  .tooltip-text {
+    left: auto;
+    right: 100%;
+    border-radius: 16px 0px 16px 16px;
+  }
 }
