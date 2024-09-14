@@ -89,6 +89,8 @@ describe("modal test ", () => {
         Message: expect.any(String),
       });
     });
+
+    expect(mockOnClose).toHaveBeenCalled();
   });
 
   test("should call the API when selectedItems array is empty", async () => {

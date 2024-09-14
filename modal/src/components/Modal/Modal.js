@@ -42,6 +42,7 @@ export default function Modal({
       try {
         await BookSectionCropReport(data);
         console.log("handleSubmit data", data);
+        onClose();
       } catch (error) {
         console.error("POST request error:", error);
       }
