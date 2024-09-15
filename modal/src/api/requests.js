@@ -61,7 +61,7 @@ export const BookSectionCropReport = (data) => {
     .catch((error) => {
       console.log("BookSectionCropReport error ", error);
       toast.error(Texts.post_error);
-      toast.error(error.message);
+      //toast.error(error.message);
       throw new Error(`Failed to post issue type request: ${error.status} ${error.message}`);
     });
 };
