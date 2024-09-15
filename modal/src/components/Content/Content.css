@@ -74,3 +74,18 @@
   line-height: 24.2px;
   color: #2c406e;
 }
+
+@media only screen and (max-height: 530px) {
+  .container {
+    flex-direction: row;
+    gap: 12px;
+  }
+  .content, .comment {
+    flex: 1; 
+    gap: 2px;
+  }
+  .modal-content {
+    min-height: 70vh;
+    gap: 2px;
+  }
+}
